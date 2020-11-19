@@ -41,8 +41,12 @@ console.log(fromHTML('<a>'));
 Methods
 -------
 
-### fromHTML(x)
+### fromArray(array)
 
-### fromJSON(x)
+### fromHTML(string)
 
-### fromURL(x)
+### fromJSON(string)
+
+### fromURL(string)
+
+### fromValue(any)
