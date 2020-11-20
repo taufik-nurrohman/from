@@ -29,7 +29,7 @@ export const fromValue = x => {
     if (isArray(x)) {
         return x.map(v => fromValue(x));
     }
-    if (isObject(x, true)) {
+    if (isObject(x)) {
         for (let k in x) {
             x[k] = fromValue(x[k]);
         }
