@@ -12,17 +12,7 @@ console.log(fromHTML('<a>'));
 </script>
 ~~~
 
-### Browser Module
-
-~~~ html
-<script type="module">
-import {fromHTML} from './@taufik-nurrohman/from/index.mjs';
-
-console.log(fromHTML('<a>'));
-</script>
-~~~
-
-### CommonJS Module
+### CommonJS
 
 ~~~ js
 const {fromHTML} = require('@taufik-nurrohman/from');
@@ -30,7 +20,7 @@ const {fromHTML} = require('@taufik-nurrohman/from');
 console.log(fromHTML('<a>'));
 ~~~
 
-### ECMAScript Module
+### ECMAScript
 
 ~~~ js
 import {fromHTML} from '@taufik-nurrohman/from';
