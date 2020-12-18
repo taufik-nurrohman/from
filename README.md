@@ -3,15 +3,6 @@ Converter Utility
 
 Convert from X to Y.
 
-### Browser
-
-~~~ html
-<script src="./@taufik-nurrohman/from/index.js"></script>
-<script>
-console.log(fromHTML('<a>'));
-</script>
-~~~
-
 ### CommonJS
 
 ~~~ js
