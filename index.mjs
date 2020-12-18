@@ -1,7 +1,4 @@
-import {
-    isArray,
-    isObject
-} from '@taufik-nurrohman/is';
+import {isArray, isObject} from '@taufik-nurrohman/is';
 
 export const fromArray = x => {
     if (isArray(x)) {
