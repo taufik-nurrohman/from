@@ -18,7 +18,13 @@ const fromHTML = x => {
         .replace(/>/g, '&gt;')
         .replace(/</g, '&lt;');
 };
-const fromJSON = x => JSON.parse(x);
+const fromJSON = x => {
+    let value = null;
+    try {
+        value = JSON.parse(x);
+    } catch(e) {}
+    return value;
+};
 const fromNumber = x => {};
 const fromString = x => {};
 const fromURL = x => encodeURIComponent(x);
