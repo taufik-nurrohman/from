@@ -26,6 +26,7 @@ export const fromJSON = x => {
     return value;
 };
 export const fromNumber = x => {};
+export const fromStates = (...lot) => Object.assign({}, ...lot);
 export const fromString = x => {};
 export const fromURL = x => encodeURIComponent(x);
 export const fromValue = x => {

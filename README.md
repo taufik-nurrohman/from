@@ -28,6 +28,8 @@ Methods
 
 ### fromJSON(string)
 
+### fromStates(...object)
+
 ### fromURL(string)
 
 ### fromValue(any)

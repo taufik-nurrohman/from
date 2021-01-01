@@ -26,6 +26,7 @@ const fromJSON = x => {
     return value;
 };
 const fromNumber = x => {};
+const fromStates = (...lot) => Object.assign({}, ...lot);
 const fromString = x => {};
 const fromURL = x => encodeURIComponent(x);
 const fromValue = x => {
@@ -55,6 +56,7 @@ Object.assign(exports || {}, {
     fromBoolean,
     fromHTML,
     fromNumber,
+    fromStates,
     fromString,
     fromURL,
     fromValue
