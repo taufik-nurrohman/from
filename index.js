@@ -51,7 +51,7 @@ const fromValue = x => {
     return "" + x;
 };
 
-Object.assign(exports || {}, {
+Object.assign(exports, {
     fromArray,
     fromBoolean,
     fromHTML,
