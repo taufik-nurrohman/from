@@ -2,7 +2,9 @@
   "author": "Taufik Nurrohman",
   "bugs": "https://github.com/taufik-nurrohman/from/issues",
   "dependencies": {
-    "@taufik-nurrohman/is": "^0.1.2"
+    "@taufik-nurrohman/has": "^0.0.3",
+    "@taufik-nurrohman/is": "^0.1.2",
+    "@taufik-nurrohman/to": "^0.0.18"
   },
   "description": "Convert from X to Y.",
   "exports": {
@@ -26,5 +28,5 @@
     "type": "git",
     "url": "git+https://github.com/taufik-nurrohman/from.git"
   },
-  "version": "0.0.7"
+  "version": "0.0.8"
 }

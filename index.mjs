@@ -1,4 +1,6 @@
-import {isArray, isObject} from '@taufik-nurrohman/is';
+import {hasValue} from '@taufik-nurrohman/has';
+import {isArray, isObject, isSet} from '@taufik-nurrohman/is';
+import {toCount} from '@taufik-nurrohman/to';
 
 export const fromArray = x => {
     if (isArray(x)) {
@@ -26,7 +28,33 @@ export const fromJSON = x => {
     return value;
 };
 export const fromNumber = x => {};
-export const fromStates = (...lot) => Object.assign({}, ...lot);
+export const fromStates = (...lot) => {
+    let out = lot.shift();
+    for (let i = 0, j = toCount(lot); i < j; ++i) {
+        for (let k in lot[i]) {
+            // Assign value
+            if (!isSet(out[k])) {
+                out[k] = lot[i][k];
+                continue;
+            }
+            // Merge array unique
+            if (isArray(out[k]) && isArray(lot[i][k])) {
+                for (let ii = 0, jj = toCount(lot[i][k]); ii < jj; ++ii) {
+                    if (!hasValue(lot[i][k][ii], out[k])) {
+                        out[k].push(lot[i][k][ii]);
+                    }
+                }
+            // Merge object recursive
+            } else if (isObject(out[k]) && isObject(lot[i][k])) {
+                fromStates(out[k], lot[i][k]);
+            // Replace value
+            } else {
+                out[k] = lot[i][k];
+            }
+        }
+    }
+    return out;
+};
 export const fromString = x => {};
 export const fromURL = x => encodeURIComponent(x);
 export const fromValue = x => {
