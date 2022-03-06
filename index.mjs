@@ -4,10 +4,10 @@ import {toCount} from '@taufik-nurrohman/to';
 
 export const fromArray = x => {
     if (isArray(x)) {
-        if (0 === x.length) {
+        if (0 === toCount(x)) {
             return null;
         }
-        if (1 === x.length) {
+        if (1 === toCount(x)) {
             return x[0];
         }
     }
