@@ -24,7 +24,7 @@ Methods
 
 ### fromArray(array)
 
-### fromHTML(string)
+### fromHTML(string, quote = false)
 
 ### fromJSON(string)
 

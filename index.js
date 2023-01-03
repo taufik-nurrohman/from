@@ -14,11 +14,12 @@ const fromArray = x => {
     return x;
 };
 const fromBoolean = x => {};
-const fromHTML = x => {
-    return x
-        .replace(/&/g, '&amp;')
-        .replace(/>/g, '&gt;')
-        .replace(/</g, '&lt;');
+const fromHTML = (x, quote) => {
+    x = x.replace(/&/g, '&amp;').replace(/>/g, '&gt;').replace(/</g, '&lt;');
+    if (quote) {
+        x = x.replace(/'/g, '&apos;').replace(/"/g, '&quot;');
+    }
+    return x;
 };
 const fromJSON = x => {
     let value = null;

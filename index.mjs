@@ -14,11 +14,12 @@ export const fromArray = x => {
     return x;
 };
 export const fromBoolean = x => {};
-export const fromHTML = x => {
-    return x
-        .replace(/&/g, '&amp;')
-        .replace(/>/g, '&gt;')
-        .replace(/</g, '&lt;');
+export const fromHTML = (x, quote) => {
+    x = x.replace(/&/g, '&amp;').replace(/>/g, '&gt;').replace(/</g, '&lt;');
+    if (quote) {
+        x = x.replace(/'/g, '&apos;').replace(/"/g, '&quot;');
+    }
+    return x;
 };
 export const fromJSON = x => {
     let value = null;
