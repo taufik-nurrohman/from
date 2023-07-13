@@ -58,7 +58,7 @@ export const fromStates = (...lot) => {
     return out;
 };
 export const fromString = x => {};
-export const fromURL = x => encodeURIComponent(x);
+export const fromURL = x => decodeURIComponent(x);
 export const fromValue = x => {
     if (isArray(x)) {
         return x.map(v => fromValue(x));

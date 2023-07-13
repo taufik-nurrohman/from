@@ -58,7 +58,7 @@ const fromStates = (...lot) => {
     return out;
 };
 const fromString = x => {};
-const fromURL = x => encodeURIComponent(x);
+const fromURL = x => decodeURIComponent(x);
 const fromValue = x => {
     if (isArray(x)) {
         return x.map(v => fromValue(x));
