@@ -1,6 +1,6 @@
 import {hasValue} from '@taufik-nurrohman/has';
 import {isArray, isObject, isSet} from '@taufik-nurrohman/is';
-import {toCount} from '@taufik-nurrohman/to';
+import {toCount, toObjectCount, toValue} from '@taufik-nurrohman/to';
 
 export const fromArray = x => {
     if (isArray(x)) {
@@ -14,9 +14,9 @@ export const fromArray = x => {
     return x;
 };
 export const fromBoolean = x => {};
-export const fromHTML = (x, quote) => {
+export const fromHTML = (x, escapeQuote) => {
     x = x.replace(/&/g, '&amp;').replace(/>/g, '&gt;').replace(/</g, '&lt;');
-    if (quote) {
+    if (escapeQuote) {
         x = x.replace(/'/g, '&apos;').replace(/"/g, '&quot;');
     }
     return x;
@@ -29,6 +29,36 @@ export const fromJSON = x => {
     return value;
 };
 export const fromNumber = x => {};
+function _fromQueryDeep(o, props, value) {
+    let prop = props.split('['), i, j = toCount(prop), k;
+    for (i = 0; i < j - 1; ++i) {
+        k = ']' === prop[i].slice(-1) ? prop[i].slice(0, -1) : prop[i];
+        k = "" === k ? toObjectCount(k) : k;
+        o = o[k] || (o[k] = {});
+    }
+    k = ']' === prop[i].slice(-1) ? prop[i].slice(0, -1) : prop[i];
+    o["" === k ? toObjectCount(o) : k] = value;
+}
+export const fromQuery = (x, parseValue = true, defaultValue = true) => {
+    let out = {}, q = x && '?' === x[0] ? x.slice(1) : x;
+    if ("" === q) {
+        return out;
+    }
+    q.split('&').forEach(v => {
+        let a = v.split('='),
+            key = fromURL(a[0]),
+            value = isSet(a[1]) ? fromURL(a[1]) : defaultValue;
+        value = parseValue ? toValue(value) : value;
+        // `a[b]=c`
+        if (']' === key.slice(-1)) {
+            _fromQueryDeep(out, key, value);
+        // `a=b`
+        } else {
+            out[key] = value;
+        }
+    });
+    return out;
+};
 export const fromStates = (...lot) => {
     let out = lot.shift();
     for (let i = 0, j = toCount(lot); i < j; ++i) {

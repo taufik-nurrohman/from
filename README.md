@@ -24,9 +24,11 @@ Methods
 
 ### fromArray(array)
 
-### fromHTML(string, quote = false)
+### fromHTML(string, escapeQuote = false)
 
 ### fromJSON(string)
+
+### fromQuery(string, parseValue = true, defaultValue = true)
 
 ### fromStates(...object)
 

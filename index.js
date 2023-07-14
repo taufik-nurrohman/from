@@ -1,6 +1,6 @@
 const {hasValue} = require('@taufik-nurrohman/has');
 const {isArray, isObject, isSet} = require('@taufik-nurrohman/is');
-const {toCount} = require('@taufik-nurrohman/to');
+const {toCount, toObjectCount, toValue} = require('@taufik-nurrohman/to');
 
 const fromArray = x => {
     if (isArray(x)) {
@@ -14,9 +14,9 @@ const fromArray = x => {
     return x;
 };
 const fromBoolean = x => {};
-const fromHTML = (x, quote) => {
+const fromHTML = (x, escapeQuote) => {
     x = x.replace(/&/g, '&amp;').replace(/>/g, '&gt;').replace(/</g, '&lt;');
-    if (quote) {
+    if (escapeQuote) {
         x = x.replace(/'/g, '&apos;').replace(/"/g, '&quot;');
     }
     return x;
@@ -29,6 +29,36 @@ const fromJSON = x => {
     return value;
 };
 const fromNumber = x => {};
+function _fromQueryDeep(o, props, value) {
+    let prop = props.split('['), i, j = toCount(prop), k;
+    for (i = 0; i < j - 1; ++i) {
+        k = ']' === prop[i].slice(-1) ? prop[i].slice(0, -1) : prop[i];
+        k = "" === k ? toObjectCount(k) : k;
+        o = o[k] || (o[k] = {});
+    }
+    k = ']' === prop[i].slice(-1) ? prop[i].slice(0, -1) : prop[i];
+    o["" === k ? toObjectCount(o) : k] = value;
+}
+const fromQuery = (x, parseValue = true, defaultValue = true) => {
+    let out = {}, q = x && '?' === x[0] ? x.slice(1) : x;
+    if ("" === q) {
+        return out;
+    }
+    q.split('&').forEach(v => {
+        let a = v.split('='),
+            key = fromURL(a[0]),
+            value = isSet(a[1]) ? fromURL(a[1]) : defaultValue;
+        value = parseValue ? toValue(value) : value;
+        // `a[b]=c`
+        if (']' === key.slice(-1)) {
+            _fromQueryDeep(out, key, value);
+        // `a=b`
+        } else {
+            out[key] = value;
+        }
+    });
+    return out;
+};
 const fromStates = (...lot) => {
     let out = lot.shift();
     for (let i = 0, j = toCount(lot); i < j; ++i) {
@@ -86,6 +116,7 @@ Object.assign(exports, {
     fromBoolean,
     fromHTML,
     fromNumber,
+    fromQuery,
     fromStates,
     fromString,
     fromURL,
